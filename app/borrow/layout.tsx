@@ -1,44 +1,35 @@
-import { getCategories } from '#/app/api/categories/getCategories';
+import { PeopleList } from '../components/option';
+import { Amount } from '../components/amount';
 import { Boundary } from '#/ui/boundary';
+import { getCategories } from '#/app/api/categories/getCategories';
 import { ClickCounter } from '#/ui/click-counter';
 import { TabGroup } from '#/ui/tab-group';
-import React from 'react';
 
-export default async function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const categories = await getCategories();
+export default function Layout({ children }: { children: React.ReactNode; }) {
 
+  
   return (
     <Boundary
       labels={['Borrow']}
-      color="orange"
+      color="violet"
       animateRerendering={false}
     >
-      <div className="space-y-9">
-        <div className="flex justify-between">
-          <TabGroup
-            path="/borrow"
-            items={[
-              {
-                text: 'Home',
-              },
-              ...categories.map((x) => ({
-                text: x.name,
-                slug: x.slug,
-              })),
-              { text: 'Checkout', slug: 'checkout' },
-              { text: 'Blog', slug: 'blog' },
-            ]}
-          />
 
-          <div className="self-start">
-            <ClickCounter />
-          </div>
-        </div>
-      </div>
+      <h1 className="text-yellow-300 t p-2 pt-5 text-5xl font-sans font-bold">
+        Borrow
+      </h1>
+
+      <h3 className="text-gray-200 p-2 pt-10">
+        Borrow popular ERC20 tokens at a fixed rate
+      </h3>
+
+      <Amount />
+
+      <p className="text-gray-200 p-2 pt-10">
+        Select a USDC-based maturity date:
+      </p>
+
+      <PeopleList />
     </Boundary>
   );
 }
